@@ -1,0 +1,11 @@
+{
+  "watch": ["./"],
+  "ext": "ts",
+  "ignore": [
+    "node_modules",
+    "public",
+    "views",
+    "client"
+  ],
+  "exec": "ts-node ./bin/www.ts"
+}
