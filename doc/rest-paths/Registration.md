@@ -20,8 +20,11 @@ POST
 JSON
 
 ### Example success
-```JSON
-{"success": true, "token": "efknsldfn1dq35de1sedsef1"}
+```TypeScript
+{
+    success: true, 
+    token: "efknsldfn1dq35de1sedsef1"
+}
 ```
 
 ### Error codes

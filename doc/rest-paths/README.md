@@ -10,8 +10,11 @@ POST
 JSON
 
 ### Error codes
-```JSON
-{"success": false, "errorCode" : #code}
+```TypeScript
+{
+    success: false, 
+    errorCode : #code
+}
 ```
 | Code | Description |
 | ---: | :--- |

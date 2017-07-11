@@ -12,9 +12,12 @@ Connexion
 
 ## Output
 
-### Example
-```JSON
-{"success" : true, "token" : "efknsldfn1dq35de1sedsef1"}
+### Example success
+```TypeScript
+{
+    success : true,
+    token : "efknsldfn1dq35de1sedsef1"
+}
 ```
 
 ### Error codes

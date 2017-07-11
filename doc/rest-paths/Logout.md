@@ -4,20 +4,16 @@ Déconnexion
 ## Path
 `/user/logout`
 
-## Method
-POST
-
 ## Input parameters
 None
 
 ## Output
 
-### Type
-JSON
-
-### Example
-```JSON
-{"success": true}
+### Example success
+```TypeScript
+{
+    success: true
+}
 ```
 
 ### Error codes
