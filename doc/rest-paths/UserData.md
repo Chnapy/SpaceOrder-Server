@@ -11,9 +11,9 @@
 
 ## Output
 
-### Example
-```JSON
-{todo}
+### Example success
+```TypeScript
+{success: true, username: "Chnapy", email?: "chnapy@gmail.fr"}
 ```
 
 ### Error codes
