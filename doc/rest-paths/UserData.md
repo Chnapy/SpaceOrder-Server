@@ -1,30 +1,29 @@
-# Login
-Connexion
+# UserData
+
 
 ## Path
-`/user/login`
+`/user/data`
 
 ## Input parameters
 | Name | Type | Conditions |
 | --- | --- | --- |
-|`username` | string | minLength(3), maxLength(32), alphanum
-|`password` | string | minLength(6), maxLength(32)
+|`id_user` | number | greaterThan(0)
 
 ## Output
 
 ### Example
 ```JSON
-{"success" : true, "token" : "efknsldfn1dq35de1sedsef1"}
+{todo}
 ```
 
 ### Error codes
 #### Template
-110X
+113X
 
 #### Codes
 | Code | Description |
 | ---: | :--- |
-| 1101 | Username or password wrong |
+| 1131 | user not found |
 
 ---
 Please check the **README.md** of the directory for the general properties.
