@@ -7,7 +7,8 @@ Données d'un utilisateur
 ## Input parameters
 | Name | Type | Conditions |
 | --- | --- | --- |
-|`id_user` | number | greaterThan(0)
+| `token` | string | token |
+|`id_user` | number | serial |
 
 ## Output
 
@@ -16,27 +17,41 @@ Données d'un utilisateur
 {
     success: true,
     data: {
+        id_user: 123,
         general: {
             username: "Chnapy", 
-            email?: "chnapy@gmail.fr"
+            email?: "chnapy@gmail.fr",
+            id_rank: 3,
+            avatar: "/123.jpg"
         },
         faction: {
             id_faction: 42
         },
         hierarchy: {
-            id_rank: 3,
             top: {
-                id_user: 489
+                id_user: 489,
+                username: "Aubergine",
+                id_rank: 2,
+                avatar: "/489.jpg"
             },
             bottom: [
                 {
-                    id_user: 974
+                    id_user: 974,
+                    username: "Tomate",
+                    id_rank: 3,
+                    avatar: "/974.jpg"
                 },
                 {
-                    id_user: 745
+                    id_user: 745,
+                    username: "PoisChiche",
+                    id_rank: 3,
+                    avatar: "/745.jpg"
                 },
                 {
-                    id_user: 124
+                    id_user: 124,
+                    username: "Camembert",
+                    id_rank: 3,
+                    avatar: "/124.jpg"
                 }
             ]
         },
@@ -72,7 +87,7 @@ Données d'un utilisateur
 #### Codes
 | Code | Description |
 | ---: | :--- |
-| 1131 | user not found |
+| 1131 | User not found |
 
 ---
 Please check the **README.md** of the directory for the general properties.
