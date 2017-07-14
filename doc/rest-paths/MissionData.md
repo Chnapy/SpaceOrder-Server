@@ -8,7 +8,7 @@ Données d'une mission
 | Name | Type | Conditions |
 | --- | --- | --- |
 | `token` | string | token |
-| `id_mission` | number | serial |
+| `id_missions` | array(number) | minLength(1), content: serial |
 
 ## Output
 
@@ -16,32 +16,34 @@ Données d'une mission
 ```TypeScript
 {
     success: true,
-    data: {
-        id_mission: 563,
-        name: "Mission impossible",
-        content: "Votre mission si vous l'acceptez...",
-        state: 2,
-        author: {
-            id_user: 98,
-            username: "Patate",
-            id_rank: 2,
-            avatar: "/98.jpg"
-        },
-        target: [
-            {
-                id_user: 165,
-                username: "Courgette",
+    data: [
+        {
+            id_mission: 563,
+            name: "Mission impossible",
+            content: "Votre mission si vous l'acceptez...",
+            state: 2,
+            author: {
+                id_user: 98,
+                username: "Patate",
                 id_rank: 2,
-                avatar: "/165.jpg",
+                avatar: "/98.jpg"
             },
-            {
-                id_user: 128,
-                username: "Concombre",
-                id_rank: 2,
-                avatar: "/128.jpg",
-            }
-        ]
-    }
+            target: [
+                {
+                    id_user: 165,
+                    username: "Courgette",
+                    id_rank: 2,
+                    avatar: "/165.jpg",
+                },
+                {
+                    id_user: 128,
+                    username: "Concombre",
+                    id_rank: 2,
+                    avatar: "/128.jpg",
+                }
+            ]
+        }
+    ]
 }
 ```
 
@@ -52,7 +54,7 @@ Données d'une mission
 #### Codes
 | Code | Description |
 | ---: | :--- |
-| 1311 | Mission not found |
+| 1311 | Some missions not found |
 
 ---
 Please check the **README.md** of the directory for the general properties.
