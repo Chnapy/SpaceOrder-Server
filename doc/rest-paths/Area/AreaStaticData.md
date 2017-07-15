@@ -1,5 +1,5 @@
 # AreaStaticData
-Données statiques des structures
+Static data of structures.
 
 ## Path
 `/area/staticdata`
@@ -17,13 +17,13 @@ Données statiques des structures
     data: [
         {
             id_structure_static: 8,
-            origin: 0,  //Naturel, arti
+            origin: 0,  //Natural, arti
             showMap: true,
             taken: true,
             canBeAttack: false,
             grades: [
                 {
-                    grade: 0, //Construction
+                    grade: 0, //Build
                     costs: {
                         mo: 50,
                         ma: 150
@@ -35,7 +35,7 @@ Données statiques des structures
                     rank_needed: 4
                 },
                 {
-                    grade: 1, //Amélioration 1
+                    grade: 1, //Upgrade 1
                     costs: {
                         mo: 75,
                         ma: 200
@@ -47,7 +47,7 @@ Données statiques des structures
                     rank_needed: 3
                 },
                 {
-                    grade: 2, //Amélioration 2
+                    grade: 2, //Upgrade 2
                     costs: {
                         mo: 100,
                         ma: 250
@@ -74,4 +74,4 @@ Données statiques des structures
 | ---: | :--- |
 
 ---
-Please check the **README.md** of the directory for the general properties.
+Please check the **[README.md](../README.md)** of the rest-paths directory for the general properties.

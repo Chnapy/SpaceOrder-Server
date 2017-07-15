@@ -1,15 +1,15 @@
 # ChatMessage
-Envoi d'un message dans le chat
+Send a message to the chat.
 
 ## Path
 `/chat/message`
 
 ## Input parameters
-| Name | Type | Conditions |
-| --- | --- | --- |
-| `token` | string | token |
-| `channel` | number |  |
-| `to?` | number | serial |
+| Name | Type | Conditions | Description |
+| --- | --- | --- | --- |
+| `token` | string | token | Token of the connected user |
+| `channel` | number | Channel where to post |
+| `to?` | number | serial | User to send the message to (private message) |
 
 ## Output
 
@@ -43,4 +43,4 @@ Envoi d'un message dans le chat
 | 1712 | Target user not found |
 
 ---
-Please check the **README.md** of the directory for the general properties.
+Please check the **[README.md](../README.md)** of the rest-paths directory for the general properties.

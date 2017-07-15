@@ -1,13 +1,13 @@
 # MapData
-Données de la carte
+Data of the all map.
 
 ## Path
 `/map/data`
 
 ## Input parameters
-| Name | Type | Conditions |
-| --- | --- | --- |
-| `token` | string | token |
+| Name | Type | Conditions | Description |
+| --- | --- | --- | --- |
+| `token` | string | token | Token of the connected user |
 
 ## Output
 
@@ -50,4 +50,4 @@ Données de la carte
 | ---: | :--- |
 
 ---
-Please check the **README.md** of the directory for the general properties.
+Please check the **[README.md](../README.md)** of the rest-paths directory for the general properties.

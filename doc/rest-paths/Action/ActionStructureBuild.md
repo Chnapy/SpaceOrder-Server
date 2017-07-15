@@ -24,6 +24,7 @@ Prepare a build of a structure.
 {
     success: true,
     action: {
+        id_action: 1234,
         id_structure: 823
     }
 }
@@ -31,18 +32,18 @@ Prepare a build of a structure.
 
 ### Error codes
 #### Template
-151X
+181X
 
 #### Codes
 | Code | Description |
 | ---: | :--- |
 | 1501 | Area not found |
-| 1511 | Support structure not found |
-| 1512 | Static structure not found |
-| 1513 | Type not found |
-| 1514 | Support and static are incompatible |
-| 1515 | Not enough resources |
-| 1516 | Date not accepted |
+| 1811 | Support structure not found |
+| 1812 | Static structure not found |
+| 1813 | Type not found |
+| 1814 | Support and static are incompatible |
+| 1815 | Not enough resources |
+| 1816 | Date not accepted |
 
 ---
-Please check the **README.md** of the directory for the general properties.
+Please check the **[README.md](../README.md)** of the rest-paths directory for the general properties.

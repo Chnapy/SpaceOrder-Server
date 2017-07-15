@@ -5,10 +5,10 @@ Prepare a repair of a structure.
 `/action/structure/repair`
 
 ## Input parameters
-| Name | Type | Conditions |
-| --- | --- | --- |
-| `token` | string | token |
-| `id_structure` | number | serial |
+| Name | Type | Conditions | Description |
+| --- | --- | --- | --- |
+| `token` | string | token | Token of the connected user |
+| `id_structure` | number | serial | ID of the structure |
 | `type` | number |  | Type of the action (0: alone, 1: call) |
 | `date?` | string |  date | Date when the action will begin (call) |
 | `mo?` | number | greaterThan(0) | MO resources invested (call) |
@@ -19,22 +19,23 @@ Prepare a repair of a structure.
 ### Example success
 ```TypeScript
 {
-    success: true
+    success: true,
+    id_action: 1234
 }
 ```
 
 ### Error codes
 #### Template
-152X
+182X
 
 #### Codes
 | Code | Description |
 | ---: | :--- |
-| 1513 | Type not found |
-| 1514 | Not enough resources |
-| 1516 | Date not accepted |
-| 1521 | Structure not found |
-| 1522 | Structure can not be repair |
+| 1813 | Type not found |
+| 1814 | Not enough resources |
+| 1816 | Date not accepted |
+| 1821 | Structure not found |
+| 1822 | Structure can not be repair |
 
 ---
-Please check the **README.md** of the directory for the general properties.
+Please check the **[README.md](../README.md)** of the rest-paths directory for the general properties.

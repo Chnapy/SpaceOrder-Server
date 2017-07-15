@@ -1,14 +1,14 @@
 # UserData
-Données d'un utilisateur
+Data of users.
 
 ## Path
 `/user/data`
 
 ## Input parameters
-| Name | Type | Conditions |
-| --- | --- | --- |
-| `token` | string | token |
-|`id_users` | array(number) | minLength(1), content: serial |
+| Name | Type | Conditions | Description |
+| --- | --- | --- | --- |
+| `token` | string | token | Token of the connected user |
+|`id_users` | array(number) | minLength(1), content: serial | Desired users by their ID |
 
 ## Output
 
@@ -94,4 +94,4 @@ Données d'un utilisateur
 | 1131 | Some users not found |
 
 ---
-Please check the **README.md** of the directory for the general properties.
+Please check the **[README.md](../README.md)** of the rest-paths directory for the general properties.

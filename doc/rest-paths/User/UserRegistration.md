@@ -1,23 +1,17 @@
 # UserRegistration
-Inscription
+Registration of a new user.
 
 ## Path
 `/user/registration`
 
-## Method
-POST
-
 ## Input parameters
 | Name | Type | Conditions |
 | --- | --- | --- |
-|`username` | string | minLength(3), maxLength(32), alphanum, noIsset
-|`password` | string | minLength(6), maxLength(32), isStrong
-|`email` | string | maxLength(128), isMail, noIsset
+|`username` | string | minLength(3), maxLength(32), alphanum, noIsset |  |
+|`password` | string | minLength(6), maxLength(32), isStrong |  |
+|`email` | string | maxLength(128), isMail, noIsset |  |
 
 ## Output
-
-### Type
-JSON
 
 ### Example success
 ```TypeScript
@@ -38,4 +32,4 @@ JSON
 | 1122 | Email already exist |
 
 ---
-Please check the **README.md** of the directory for the general properties.
+Please check the **[README.md](../README.md)** of the rest-paths directory for the general properties.

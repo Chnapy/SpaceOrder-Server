@@ -1,18 +1,18 @@
 # ChatData
-Données du chat
+Messages from chat.
 
 ## Path
 `/chat/data`
 
 ## Input parameters
-| Name | Type | Conditions |
-| --- | --- | --- |
-| `token` | string | token |
-| `date_start?` | string | date |
-| `date_end?` | string | date |
-| `channels?` | array(number) | minLength(1) |
-| `from?` | array(number) | minLength(1), content: serial |
-| `to?` | array(number) | minLength(1), content: serial |
+| Name | Type | Conditions | Description |
+| --- | --- | --- | --- |
+| `token` | string | token | Token of the connected user |
+| `date_start?` | string | date | From this date |
+| `date_end?` | string | date | Until this date |
+| `channels?` | array(number) | minLength(1) | Posted in these channels |
+| `from?` | array(number) | minLength(1), content: serial | From these users |
+| `to?` | array(number) | minLength(1), content: serial | To these users (private messages) |
 
 ## Output
 
@@ -64,4 +64,4 @@ Données du chat
 | ---: | :--- |
 
 ---
-Please check the **README.md** of the directory for the general properties.
+Please check the **[README.md](../README.md)** of the rest-paths directory for the general properties.

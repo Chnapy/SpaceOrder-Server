@@ -1,18 +1,18 @@
 # NoticeData
-Les notifications
+Data of notices.
 
 ## Path
 `/notice/data`
 
 ## Input parameters
-| Name | Type | Conditions |
-| --- | --- | --- |
-| `token` | string | token |
-| `date_start?` | string | date |
-| `date_end?` | string | date |
-| `id_users?` | array(number) | minLength(1), content: serial |
-| `id_factions?` | array(number) | minLength(1), content: serial |
-| `id_actions?` | array(number) | minLength(1), content: serial |
+| Name | Type | Conditions | Description |
+| --- | --- | --- | --- |
+| `token` | string | token | Token of the connected user |
+| `date_start?` | string | date | From this date |
+| `date_end?` | string | date | Until this date |
+| `id_users?` | array(number) | minLength(1), content: serial | From these users |
+| `id_factions?` | array(number) | minLength(1), content: serial | From these factions |
+| `id_actions?` | array(number) | minLength(1), content: serial | From thses static actions |
 
 ## Output
 
@@ -51,4 +51,4 @@ Les notifications
 | ---: | :--- |
 
 ---
-Please check the **README.md** of the directory for the general properties.
+Please check the **[README.md](../README.md)** of the rest-paths directory for the general properties.
