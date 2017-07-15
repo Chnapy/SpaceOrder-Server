@@ -20,6 +20,7 @@ Données statiques des structures
             origin: 0,  //Naturel, arti
             showMap: true,
             taken: true,
+            canBeAttack: false,
             grades: [
                 {
                     grade: 0, //Construction

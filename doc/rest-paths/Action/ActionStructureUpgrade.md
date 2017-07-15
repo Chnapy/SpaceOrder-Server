@@ -1,14 +1,18 @@
-# AreaUpgrade
-Amélioration d'une structure
+# ActionStructureUpgrade
+Prepare an upgrade of a structure.
 
 ## Path
-`/area/upgrade`
+`/action/structure/upgrade`
 
 ## Input parameters
 | Name | Type | Conditions |
 | --- | --- | --- |
 | `token` | string | token |
 | `id_structure` | number | serial |
+| `type` | number |  | Type of the action (0: alone, 1: call) |
+| `date?` | string |  date | Date when the action will begin (call) |
+| `mo?` | number | greaterThan(0) | MO resources invested (call) |
+| `ma?` | number | greaterThan(0) | MA resources invested (call) |
 
 ## Output
 
@@ -38,9 +42,11 @@ Amélioration d'une structure
 #### Codes
 | Code | Description |
 | ---: | :--- |
-| 1501 | Area not found |
-| 1531 | Area can not be upgrade |
+| 1513 | Type not found |
 | 1514 | Not enough resources |
+| 1516 | Date not accepted |
+| 1521 | Structure not found |
+| 1531 | Structure can not be upgrade |
 
 ---
-Please check the **README.md** of the directory for the general properties.
+Please check the **[README.md](../README.md)** of the rest-paths directory for the general properties.

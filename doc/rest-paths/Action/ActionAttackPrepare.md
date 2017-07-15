@@ -1,8 +1,8 @@
-# ActionStructureBuild
-Construction d'une structure
+# ActionAttackPrepare
+Prepare an attack on an area.
 
 ## Path
-`/action/structure/build`
+`/action/attack/prepare`
 
 ## Input parameters
 | Name | Type | Conditions | Description |
@@ -12,10 +12,7 @@ Construction d'une structure
 | `y` | number | greaterOrEqual(0) | Position Y of the area |
 | `type` | number |  | Type of the action (0: alone, 1: call) |
 | `date?` | string |  date | Date when the action will begin (call) |
-| `support` | number | serial | Structure (no static) which will support the new structure |
-| `static` | number | serial | Static structure to be build |
-| `mo?` | number | greaterThan(0) | MO resources invested (call) |
-| `ma?` | number | greaterThan(0) | MA resources invested (call) |
+| `mi` | number | greaterThan(0) | MI resources invested |
 
 ## Output
 
@@ -28,17 +25,14 @@ Construction d'une structure
 
 ### Error codes
 #### Template
-151X
+180X
 
 #### Codes
 | Code | Description |
 | ---: | :--- |
 | 1501 | Area not found |
-| 1511 | Support structure not found |
-| 1512 | Static structure not found |
 | 1513 | Type not found |
-| 1514 | Support and static are incompatible |
-| 1515 | Not enough resources |
+| 1516 | Date not accepted |
 
 ---
 Please check the **README.md** of the directory for the general properties.
