@@ -28,7 +28,7 @@ export default class User extends Model<User> {
     readonly username: string;
 
     @BelongsTo(() => Password, 'id_password')
-    password: Password;
+    readonly password: Password;
 
     @IsEmail
     @AllowNull(false)

@@ -114,12 +114,9 @@ export default class App {
                 email: "toto@aaa.com",
                 date_register: new Date(),
                 date_last_activity: new Date()
-            });
+            }, {include: [{model: Password}]});
 
-            password.save();
             user.save();
-
-            // validate(user);
         });
 
 
