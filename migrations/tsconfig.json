@@ -4,17 +4,13 @@
     "target": "es6",
     "sourceMap": true,
     "typeRoots": [
-      "node_modules/@types"
+      "../node_modules/@types"
     ],
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "outDir": "js/"
   },
   "exclude": [
-    "node_modules",
-    "public",
-    "views",
-    "config",
-    "doc",
-    "migrations"
+    "js"
   ]
 }

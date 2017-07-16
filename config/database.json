@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "spaceorder_admin",
+    "password": "vtffede1",
+    "database": "spaceorder",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "NOT_DEFINED",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "NOT_DEFINED",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

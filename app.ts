@@ -1,20 +1,24 @@
 import * as express from "express";
-import debug from 'debug';
+import debug from "debug";
 import * as http from "http";
 import * as path from "path";
 import * as logger from "morgan";
 import * as cookieParser from "cookie-parser";
 import * as bodyParser from "body-parser";
 import * as sassMiddleware from "node-sass-middleware";
+import {Model, Sequelize} from "sequelize-typescript";
 
 import index from "./routes/index";
 import users from "./routes/users";
+import Password from "./models/Password";
+import User from "./models/User";
 
 export default class App {
 
     private static readonly USE_SASS: boolean = true;
 
     private readonly app: express.Express;
+    private sequelize: Sequelize;
     private server: http.Server;
 
     constructor() {
@@ -28,6 +32,8 @@ export default class App {
         this.setupRoutes();
         this.setup404();
         this.setupErrorHandler();
+
+        this.setupDatabase();
 
         this.setupServer(port);
     }
@@ -80,6 +86,43 @@ export default class App {
             res.status(err.status || 500);
             res.send('error');
         });
+    }
+
+    private setupDatabase() {
+        this.sequelize = new Sequelize({
+            name: 'spaceorder',
+            dialect: 'postgres',
+            username: 'spaceorder_admin',
+            password: 'vtffede1',
+            host: 'localhost',
+            port: 5432,
+            modelPaths: [__dirname + '/models']
+        });
+
+        //Drop then create all tables
+        this.sequelize.sync({force: true}).then(err => {
+
+            const password = new Password({
+                id_password: 2,
+                value: 'test_pwd',
+                salt: [21, 34, 56]
+            });
+
+            const user = new User({
+                username: "Chnapy",
+                password: password,
+                email: "toto@aaa.com",
+                date_register: new Date(),
+                date_last_activity: new Date()
+            });
+
+            password.save();
+            user.save();
+
+            // validate(user);
+        });
+
+
     }
 
     private setupServer(port: number) {
