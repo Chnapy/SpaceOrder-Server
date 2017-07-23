@@ -6,12 +6,13 @@ import * as logger from "morgan";
 import * as cookieParser from "cookie-parser";
 import * as bodyParser from "body-parser";
 import * as sassMiddleware from "node-sass-middleware";
-import {Model, Sequelize} from "sequelize-typescript";
+import {Sequelize} from "sequelize-typescript";
 
 import index from "./routes/index";
 import users from "./routes/users";
 import Password from "./models/Password";
 import User from "./models/User";
+import Faction from "./models/Faction";
 
 export default class App {
 
@@ -108,16 +109,41 @@ export default class App {
                 salt: [21, 34, 56]
             });
 
+            const top = new User({
+                // id_user: 9,
+                username: "C2aaaa",
+                email: "toto@aaa.com",
+                date_register: new Date(),
+                date_last_activity: new Date(),
+                mo_actu: 0,
+                mo_total: 1,
+                ma_actu: 2,
+                mi_actu: 3,
+                mi_total: 4,
+            });
+
+            // top.save().then(s => {
+
             const user = new User({
                 username: "Chnapy",
                 password: password,
                 email: "toto@aaa.com",
                 date_register: new Date(),
-                date_last_activity: new Date()
-            }, {include: [{model: Password}]});
+                date_last_activity: new Date(),
+                mo_actu: 0,
+                mo_total: 1,
+                ma_actu: 2,
+                mi_actu: 3,
+                mi_total: 4,
+                top: top
+            }, {include: [{model: Password}, {model: User, as: 'top'}]});
 
-            user.save();
-        });
+            user.save()
+                .then(u => console.log(u))
+                .catch(err => console.error(err));
+            // });
+
+        }).catch(err => console.error(err));
 
 
     }

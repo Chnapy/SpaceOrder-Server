@@ -1,19 +1,32 @@
 import {
     AllowNull,
-    AutoIncrement, BelongsTo,
+    AutoIncrement,
+    BelongsTo,
     Column,
     CreatedAt,
-    DataType, ForeignKey,
-    HasOne,
+    DataType,
+    ForeignKey,
     IsEmail,
+    IsInt,
     Length,
     Model,
     PrimaryKey,
+    Scopes,
     Table,
     UpdatedAt
 } from "sequelize-typescript";
 import Password from "./Password";
+import Faction from "./Faction";
 
+@Scopes({
+    full: {
+        include: [
+            {
+                model: () => Password
+            }
+        ]
+    }
+})
 @Table
 export default class User extends Model<User> {
 
@@ -27,7 +40,12 @@ export default class User extends Model<User> {
     @Column
     readonly username: string;
 
-    @BelongsTo(() => Password, 'id_password')
+    @ForeignKey(() => Password)
+    // @AllowNull(false)
+    @Column
+    readonly id_password: number;
+
+    @BelongsTo(() => Password)
     readonly password: Password;
 
     @IsEmail
@@ -44,5 +62,54 @@ export default class User extends Model<User> {
     @AllowNull(false)
     @Column
     date_last_activity: Date;
+
+    @BelongsTo(() => Faction)
+    faction: Faction;
+
+    @ForeignKey(() => Faction)
+    @AllowNull(true)
+    @Column
+    id_faction: number;
+
+    @ForeignKey(() => User)
+    @Column
+    id_top: number;
+
+    @BelongsTo(() => User,
+        {
+            targetKey: 'id_user',
+            as: 'top'
+        })
+    top: User;
+
+    // @HasMany(() => User, 'id_user')
+    // bottom: User[];
+
+    @IsInt
+    @AllowNull(false)
+    @Column
+    mo_actu: number;
+
+    @IsInt
+    @AllowNull(false)
+    @Column
+    mo_total: number;
+
+    @IsInt
+    @AllowNull(false)
+    @Column
+    ma_actu: number;
+
+    @IsInt
+    @AllowNull(false)
+    @Column
+    mi_actu: number;
+
+    @IsInt
+    @AllowNull(false)
+    @Column
+    mi_total: number;
+
+    //missions
 
 }
