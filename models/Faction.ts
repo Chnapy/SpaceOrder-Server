@@ -1,7 +1,8 @@
 import {
-    AllowNull, AutoIncrement, Column, CreatedAt, DataType, Default, Length, Model,
+    AllowNull, AutoIncrement, BelongsTo, Column, CreatedAt, DataType, Default, ForeignKey, HasOne, Length, Model,
     PrimaryKey
 } from "sequelize-typescript";
+import User from "./User";
 
 export default class Faction extends Model<Faction> {
 

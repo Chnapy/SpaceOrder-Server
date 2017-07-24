@@ -13,6 +13,7 @@ import users from "./routes/users";
 import Password from "./models/Password";
 import User from "./models/User";
 import Faction from "./models/Faction";
+import {default as Rank, RankEnum} from "./models/Rank";
 
 export default class App {
 
@@ -97,21 +98,22 @@ export default class App {
             password: 'vtffede1',
             host: 'localhost',
             port: 5432,
-            modelPaths: [__dirname + '/models']
+            modelPaths: [__dirname + '/models', __dirname + '/models/StructureStatic']
         });
 
         //Drop then create all tables
         this.sequelize.sync({force: true}).then(err => {
 
-            const password = new Password({
-                id_password: 2,
-                value: 'test_pwd',
-                salt: [21, 34, 56]
-            });
+            const rankIds = Object.keys(RankEnum).map((k, i) => ({id_rank: i + 1}));
+            Rank.bulkCreate<Rank>(rankIds);
+
 
             const top = new User({
-                // id_user: 9,
                 username: "C2aaaa",
+                password: {
+                    value: 'test2',
+                    salt: [97, 34, 56]
+                },
                 email: "toto@aaa.com",
                 date_register: new Date(),
                 date_last_activity: new Date(),
@@ -120,13 +122,15 @@ export default class App {
                 ma_actu: 2,
                 mi_actu: 3,
                 mi_total: 4,
-            });
-
-            // top.save().then(s => {
+                id_rank: RankEnum.LEADER
+            }, {include: [{model: User}, {model: Password}]});
 
             const user = new User({
                 username: "Chnapy",
-                password: password,
+                password: {
+                    value: 'test_pwd',
+                    salt: [21, 34, 56]
+                },
                 email: "toto@aaa.com",
                 date_register: new Date(),
                 date_last_activity: new Date(),
@@ -135,13 +139,20 @@ export default class App {
                 ma_actu: 2,
                 mi_actu: 3,
                 mi_total: 4,
-                top: top
-            }, {include: [{model: Password}, {model: User, as: 'top'}]});
+                id_rank: RankEnum.OFFICER1
+            }, {include: [{model: User}, {model: Password}]});
 
-            user.save()
-                .then(u => console.log(u))
-                .catch(err => console.error(err));
-            // });
+            const faction = new Faction({
+                name: 'Test_faction',
+                slogan: 'Test_slogan',
+                color: '#FF8844'
+            });
+
+            Promise.all([top.save(), user.save(), faction.save()]).then(() => {
+                user.$set('top', top);
+                user.$set('faction', faction);
+            });
+
 
         }).catch(err => console.error(err));
 

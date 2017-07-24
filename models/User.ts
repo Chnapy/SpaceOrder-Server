@@ -1,11 +1,11 @@
 import {
     AllowNull,
     AutoIncrement,
-    BelongsTo,
+    BelongsTo, BelongsToMany,
     Column,
     CreatedAt,
-    DataType,
-    ForeignKey,
+    DataType, Default,
+    ForeignKey, HasMany,
     IsEmail,
     IsInt,
     Length,
@@ -17,16 +17,10 @@ import {
 } from "sequelize-typescript";
 import Password from "./Password";
 import Faction from "./Faction";
+import Rank, {RankEnum} from "./Rank";
+import Mission from "./Mission";
+import UserMission from "./UserMission";
 
-@Scopes({
-    full: {
-        include: [
-            {
-                model: () => Password
-            }
-        ]
-    }
-})
 @Table
 export default class User extends Model<User> {
 
@@ -63,27 +57,29 @@ export default class User extends Model<User> {
     @Column
     date_last_activity: Date;
 
-    @BelongsTo(() => Faction)
-    faction: Faction;
-
     @ForeignKey(() => Faction)
     @AllowNull(true)
     @Column
     id_faction: number;
 
+    @BelongsTo(() => Faction)
+    faction: Faction;
+
     @ForeignKey(() => User)
+    @AllowNull(true)
     @Column
     id_top: number;
 
-    @BelongsTo(() => User,
-        {
-            targetKey: 'id_user',
-            as: 'top'
-        })
+    @BelongsTo(() => User, 'id_top')
     top: User;
 
-    // @HasMany(() => User, 'id_user')
-    // bottom: User[];
+    @ForeignKey(() => Rank)
+    @AllowNull(false)
+    @Column
+    id_rank: number;
+
+    @BelongsTo(() => Rank, 'id_rank')
+    rank: number;
 
     @IsInt
     @AllowNull(false)
@@ -110,6 +106,7 @@ export default class User extends Model<User> {
     @Column
     mi_total: number;
 
-    //missions
+    @BelongsToMany(() => Mission, () => UserMission)
+    missions: Mission[];
 
 }
