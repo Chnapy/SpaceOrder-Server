@@ -1,4 +1,14 @@
-import {AllowNull, BelongsToMany, Column, DataType, HasMany, Model, PrimaryKey, Table} from "sequelize-typescript";
+import {
+    AllowNull,
+    AutoIncrement,
+    BelongsToMany,
+    Column,
+    DataType,
+    HasMany,
+    Model,
+    PrimaryKey,
+    Table
+} from "sequelize-typescript";
 import StructureStaticSupport from "./StructureStaticSupport";
 import StructureStaticGrade from "./StructureStaticGrade";
 
@@ -11,6 +21,7 @@ export class OriginEnum {
 export default class StructureStatic extends Model<StructureStatic> {
 
     @PrimaryKey
+    @AutoIncrement
     @Column(DataType.INTEGER)
     readonly id_structure_static: number;
 

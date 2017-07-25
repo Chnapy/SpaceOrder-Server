@@ -1,9 +1,20 @@
-import {AllowNull, Column, DataType, Default, IsInt, Model, PrimaryKey, Table} from "sequelize-typescript";
+import {
+    AllowNull,
+    AutoIncrement,
+    Column,
+    DataType,
+    Default,
+    IsInt,
+    Model,
+    PrimaryKey,
+    Table
+} from "sequelize-typescript";
 
 @Table
 export default class Resources extends Model<Resources> {
 
     @PrimaryKey
+    @AutoIncrement
     @Column(DataType.BIGINT)
     readonly id_resources: number;
 

@@ -1,23 +1,23 @@
 import {
     AllowNull,
     AutoIncrement,
-    BelongsTo, BelongsToMany,
+    BelongsTo,
+    BelongsToMany,
     Column,
     CreatedAt,
-    DataType, Default,
-    ForeignKey, HasMany,
+    DataType,
+    ForeignKey,
     IsEmail,
     IsInt,
     Length,
     Model,
     PrimaryKey,
-    Scopes,
     Table,
     UpdatedAt
 } from "sequelize-typescript";
 import Password from "./Password";
 import Faction from "./Faction";
-import Rank, {RankEnum} from "./Rank";
+import Rank from "./Rank";
 import Mission from "./Mission";
 import UserMission from "./UserMission";
 

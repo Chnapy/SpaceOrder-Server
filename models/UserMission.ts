@@ -1,5 +1,3 @@
-
-
 import {AllowNull, Column, DataType, ForeignKey, Model, PrimaryKey, Table} from "sequelize-typescript";
 import Mission from "./Mission";
 import User from "./User";

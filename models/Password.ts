@@ -1,8 +1,4 @@
-import {
-    AllowNull, AutoIncrement, BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey,
-    Table
-} from "sequelize-typescript";
-import User from "./User";
+import {AllowNull, AutoIncrement, Column, DataType, Model, PrimaryKey, Table} from "sequelize-typescript";
 
 @Table
 export default class Password extends Model<Password> {

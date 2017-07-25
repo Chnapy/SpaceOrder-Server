@@ -1,5 +1,13 @@
 import {
-    AllowNull, AutoIncrement, BelongsTo, BelongsToMany, Column, DataType, ForeignKey, Model, PrimaryKey,
+    AllowNull,
+    AutoIncrement,
+    BelongsTo,
+    BelongsToMany,
+    Column,
+    DataType,
+    ForeignKey,
+    Model,
+    PrimaryKey,
     Table
 } from "sequelize-typescript";
 import User from "./User";
@@ -33,7 +41,7 @@ export default class Mission extends Model<Mission> {
 
     @ForeignKey(() => User)
     @AllowNull(true)
-    @Column
+    @Column(DataType.BIGINT)
     id_author: number;
 
     @BelongsTo(() => User)

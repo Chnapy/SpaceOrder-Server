@@ -1,4 +1,4 @@
-import {AutoIncrement, Column, DataType, Model, PrimaryKey, Table} from "sequelize-typescript";
+import {Column, DataType, Model, PrimaryKey, Table} from "sequelize-typescript";
 
 export class RankEnum {
     static readonly SUBOFFICER = 1;
