@@ -12,12 +12,7 @@ import {
 } from "sequelize-typescript";
 import User from "./User";
 import UserMission from "./UserMission";
-
-export class MissionState {
-    static readonly OPEN = 1;
-    static readonly SUCCESS = 2;
-    static readonly FAIL = 3;
-}
+import MissionState from "./Enum/MissionState";
 
 @Table
 export default class Mission extends Model<Mission> {
@@ -35,9 +30,13 @@ export default class Mission extends Model<Mission> {
     @Column(DataType.TEXT)
     content: string;
 
+    @ForeignKey(() => MissionState)
     @AllowNull(false)
     @Column
-    state: number;
+    id_mission_state: number;
+
+    @BelongsTo(() => MissionState)
+    state: MissionState;
 
     @ForeignKey(() => User)
     @AllowNull(true)

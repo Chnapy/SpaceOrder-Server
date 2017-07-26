@@ -1,12 +1,12 @@
 import {AllowNull, AutoIncrement, Column, DataType, IsInt, Model, PrimaryKey, Table} from "sequelize-typescript";
 
 @Table
-export default class Position extends Model<Position> {
+export default class Area extends Model<Area> {
 
     @PrimaryKey
     @AutoIncrement
     @Column(DataType.INTEGER)
-    readonly id_location: number;
+    readonly id_area: number;
 
     @IsInt
     @AllowNull(false)

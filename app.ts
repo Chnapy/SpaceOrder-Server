@@ -6,14 +6,14 @@ import * as logger from "morgan";
 import * as cookieParser from "cookie-parser";
 import * as bodyParser from "body-parser";
 import * as sassMiddleware from "node-sass-middleware";
-import {Sequelize} from "sequelize-typescript";
+import {Model, Sequelize} from "sequelize-typescript";
 
 import index from "./routes/index";
 import users from "./routes/users";
 import Password from "./models/Password";
 import User from "./models/User";
 import Faction from "./models/Faction";
-import {default as Rank, RankEnum} from "./models/Rank";
+import {default as Rank} from "./models/Rank";
 
 export default class App {
 
@@ -98,13 +98,22 @@ export default class App {
             password: 'vtffede1',
             host: 'localhost',
             port: 5432,
-            modelPaths: [__dirname + '/models', __dirname + '/models/StructureStatic']
+            modelPaths: [
+                __dirname + '/models',
+                __dirname + '/models/StructureStatic',
+                __dirname + '/models/Action',
+                __dirname + '/models/Enum'
+            ]
         });
 
         //Drop then create all tables
         this.sequelize.sync({force: true}).then(err => {
 
-            const rankIds = Object.keys(RankEnum).map((k, i) => ({id_rank: i + 1}));
+            const getNbEnum = (model: typeof Model) => Object.keys(model).filter(e => e.toUpperCase() === e).length;
+
+            console.log(getNbEnum(Rank));
+
+            const rankIds = Object.keys(Rank).map((k, i) => ({id_rank: i + 1}));
             Rank.bulkCreate<Rank>(rankIds);
 
 
@@ -122,7 +131,7 @@ export default class App {
                 ma_actu: 2,
                 mi_actu: 3,
                 mi_total: 4,
-                id_rank: RankEnum.LEADER
+                id_rank: Rank.LEADER
             }, {include: [{model: User}, {model: Password}]});
 
             const user = new User({
@@ -139,7 +148,7 @@ export default class App {
                 ma_actu: 2,
                 mi_actu: 3,
                 mi_total: 4,
-                id_rank: RankEnum.OFFICER1
+                id_rank: Rank.OFFICER1
             }, {include: [{model: User}, {model: Password}]});
 
             const faction = new Faction({

@@ -1,9 +1,11 @@
 import {
     AllowNull,
     AutoIncrement,
+    BelongsTo,
     BelongsToMany,
     Column,
     DataType,
+    ForeignKey,
     HasMany,
     Model,
     PrimaryKey,
@@ -11,11 +13,7 @@ import {
 } from "sequelize-typescript";
 import StructureStaticSupport from "./StructureStaticSupport";
 import StructureStaticGrade from "./StructureStaticGrade";
-
-export class OriginEnum {
-    static readonly NATURAL = 0;
-    static readonly ARTIFICIAL = 1;
-}
+import StructureOrigin from "../Enum/StructureOrigin";
 
 @Table
 export default class StructureStatic extends Model<StructureStatic> {
@@ -25,9 +23,13 @@ export default class StructureStatic extends Model<StructureStatic> {
     @Column(DataType.INTEGER)
     readonly id_structure_static: number;
 
+    @ForeignKey(() => StructureOrigin)
     @AllowNull(false)
     @Column
-    readonly origin: number;
+    readonly id_structure_origin: number;
+
+    @BelongsTo(() => StructureOrigin)
+    readonly origin: StructureOrigin;
 
     @AllowNull(false)
     @Column

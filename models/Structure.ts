@@ -11,17 +11,11 @@ import {
     Table
 } from "sequelize-typescript";
 import StructureStatic from "./StructureStatic/StructureStatic";
-import Position from "./Position";
+import Area from "./Area";
 import Resources from "./Resources";
 import User from "./User";
-
-export class StructureState {
-    static readonly NORMAL = 1;
-    static readonly BUILD = 2;
-    static readonly REPAIR = 3;
-    static readonly UPGRADE = 4;
-    static readonly DESTROYED = 5;
-}
+import StructureState from "./Enum/StructureState";
+import StructureGradeEnum from "./Enum/StructureGradeEnum";
 
 @Table
 export default class Structure extends Model<Structure> {
@@ -39,21 +33,33 @@ export default class Structure extends Model<Structure> {
     @BelongsTo(() => StructureStatic)
     readonly structure_static: StructureStatic;
 
-    @ForeignKey(() => Position)
+    @ForeignKey(() => Area)
     @AllowNull(false)
     @Column
-    readonly id_location: number;
+    readonly id_area: number;
 
-    @BelongsTo(() => Position)
-    readonly location: Position;
+    @BelongsTo(() => Area)
+    readonly area: Area;
 
     @AllowNull(false)
     @Column
     name: string;
 
+    @ForeignKey(() => StructureGradeEnum)
     @AllowNull(false)
     @Column
-    grade: number;
+    id_structure_grade_enum: number;
+
+    @BelongsTo(() => StructureGradeEnum)
+    grade: StructureGradeEnum;
+
+    @ForeignKey(() => StructureState)
+    @AllowNull(false)
+    @Column
+    id_structure_state: number;
+
+    @BelongsTo(() => StructureState)
+    state: StructureState;
 
     @CreatedAt
     @AllowNull(false)

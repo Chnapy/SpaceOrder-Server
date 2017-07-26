@@ -14,13 +14,7 @@ import Resources from "../Resources";
 import {default as StructureStaticGradeCost} from "./StructureStaticGradeCost";
 import Rank from "../Rank";
 import StructureStaticGradeWin from "./StructureStaticGradeWin";
-
-export class StructureGradeEnum {
-    static readonly BUILD = 0;
-    static readonly UPGRADE1 = 1;
-    static readonly UPGRADE2 = 2;
-    static readonly UPGRADE3 = 3;
-}
+import StructureGradeEnum from "../Enum/StructureGradeEnum";
 
 @Table
 export default class StructureStaticGrade extends Model<StructureStaticGrade> {
@@ -30,9 +24,13 @@ export default class StructureStaticGrade extends Model<StructureStaticGrade> {
     @Column(DataType.INTEGER)
     readonly id_structure_static_grade: number;
 
+    @ForeignKey(() => StructureGradeEnum)
     @AllowNull(false)
     @Column
-    readonly grade: number;
+    readonly id_structure_grade_enum: number;
+
+    @BelongsTo(() => StructureGradeEnum)
+    readonly grade: StructureGradeEnum;
 
     @BelongsToMany(() => Resources, () => StructureStaticGradeCost)
     readonly costs: Resources[];
