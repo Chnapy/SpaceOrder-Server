@@ -1,13 +1,16 @@
 import {Column, Model, PrimaryKey, Table} from "sequelize-typescript";
 
+export enum StructureStateEnum {
+
+    NORMAL = 1,
+    BUILD = 2,
+    REPAIR = 3,
+    UPGRADE = 4,
+    DESTROYED = 5
+}
+
 @Table
 export default class StructureState extends Model<StructureState> {
-
-    static readonly NORMAL = 1;
-    static readonly BUILD = 2;
-    static readonly REPAIR = 3;
-    static readonly UPGRADE = 4;
-    static readonly DESTROYED = 5;
 
     @PrimaryKey
     @Column

@@ -1,16 +1,18 @@
 import {Column, Model, PrimaryKey, Table} from "sequelize-typescript";
 
+export enum ChatChannelEnum {
+    SUBOFFICER = 1,
+    OFFICER2 = 2,
+    OFFICER1 = 3,
+    ADMIRAL = 4,
+    LEADER = 5,
+
+    PUBLIC = 6,
+    FACTION = 7
+}
+
 @Table
 export default class ChatChannel extends Model<ChatChannel> {
-
-    static readonly SUBOFFICER = 1;
-    static readonly OFFICER2 = 2;
-    static readonly OFFICER1 = 3;
-    static readonly ADMIRAL = 4;
-    static readonly LEADER = 5;
-
-    static readonly PUBLIC = 6;
-    static readonly FACTION = 7;
 
     @PrimaryKey
     @Column

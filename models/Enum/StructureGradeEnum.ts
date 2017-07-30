@@ -1,12 +1,15 @@
 import {Column, Model, PrimaryKey, Table} from "sequelize-typescript";
 
+export enum StructureGradeEnum_Enum {
+
+    NOUPGRADE = 0,
+    UPGRADE1 = 1,
+    UPGRADE2 = 2,
+    UPGRADE3 = 3
+}
+
 @Table
 export default class StructureGradeEnum extends Model<StructureGradeEnum> {
-
-    static readonly NOUPGRADE = 0;
-    static readonly UPGRADE1 = 1;
-    static readonly UPGRADE2 = 2;
-    static readonly UPGRADE3 = 3;
 
     @PrimaryKey
     @Column

@@ -1,12 +1,14 @@
 import {Column, Model, PrimaryKey, Table} from "sequelize-typescript";
 
+export enum ActionStateEnum {
+    WAIT = 0,
+    STARTED = 1,
+    ENDED = 2,
+    CANCELED = 3
+}
+
 @Table
 export default class ActionState extends Model<ActionState> {
-
-    static readonly WAIT = 0;
-    static readonly STARTED = 1;
-    static readonly ENDED = 2;
-    static readonly CANCELED = 3;
 
     @PrimaryKey
     @Column

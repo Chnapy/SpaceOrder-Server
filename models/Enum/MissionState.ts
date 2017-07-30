@@ -1,11 +1,13 @@
 import {Column, Model, PrimaryKey, Table} from "sequelize-typescript";
 
+export enum MissionStateEnum {
+    OPEN = 1,
+    SUCCESS = 2,
+    FAIL = 3
+}
+
 @Table
 export default class MissionState extends Model<MissionState> {
-
-    static readonly OPEN = 1;
-    static readonly SUCCESS = 2;
-    static readonly FAIL = 3;
 
     @PrimaryKey
     @Column

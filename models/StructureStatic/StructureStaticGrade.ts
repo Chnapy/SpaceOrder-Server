@@ -12,7 +12,7 @@ import {
 } from "sequelize-typescript";
 import Resources from "../Resources";
 import {default as StructureStaticGradeCost} from "./StructureStaticGradeCost";
-import Rank from "../Rank";
+import Rank from "../Enum/Rank";
 import StructureStaticGradeWin from "./StructureStaticGradeWin";
 import StructureGradeEnum from "../Enum/StructureGradeEnum";
 

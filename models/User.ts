@@ -17,25 +17,28 @@ import {
 } from "sequelize-typescript";
 import Password from "./Password";
 import Faction from "./Faction";
-import Rank from "./Rank";
+import Rank from "./Enum/Rank";
 import Mission from "./Mission";
 import UserMission from "./UserMission";
 
 @Table
 export default class User extends Model<User> {
 
+    static USERNAME_LENGTH = {min: 3, max: 16};
+    static EMAIL_LENGTH = {max: 128};
+
     @PrimaryKey
     @AutoIncrement
     @Column(DataType.BIGINT)
     readonly id_user: number;
 
-    @Length({min: 3, max: 16})
+    @Length(User.USERNAME_LENGTH)
     @AllowNull(false)
     @Column
     readonly username: string;
 
     @ForeignKey(() => Password)
-    // @AllowNull(false)
+    @AllowNull(false)
     @Column
     readonly id_password: number;
 
@@ -43,6 +46,7 @@ export default class User extends Model<User> {
     readonly password: Password;
 
     @IsEmail
+    @Length(User.EMAIL_LENGTH)
     @AllowNull(false)
     @Column
     email: string;

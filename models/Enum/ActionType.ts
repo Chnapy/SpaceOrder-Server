@@ -1,5 +1,10 @@
 import {Column, Model, PrimaryKey, Table} from "sequelize-typescript";
 
+export enum ActionTypeEnum {
+    ALONE = 0,
+    CALL = 1
+}
+
 @Table
 export default class ActionType extends Model<ActionType> {
 

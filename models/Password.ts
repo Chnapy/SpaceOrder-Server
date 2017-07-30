@@ -3,6 +3,8 @@ import {AllowNull, AutoIncrement, Column, DataType, Model, PrimaryKey, Table} fr
 @Table
 export default class Password extends Model<Password> {
 
+    static PASSWORD_LENGTH = {min: 6, max: 32};
+
     @PrimaryKey
     @AutoIncrement
     @Column(DataType.BIGINT)

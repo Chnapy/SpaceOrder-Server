@@ -1,13 +1,15 @@
 import {Column, DataType, Model, PrimaryKey, Table} from "sequelize-typescript";
 
+export enum RankEnum {
+    SUBOFFICER = 1,
+    OFFICER2 = 2,
+    OFFICER1 = 3,
+    ADMIRAL = 4,
+    LEADER = 5
+}
+
 @Table
 export default class Rank extends Model<Rank> {
-
-    static readonly SUBOFFICER = 1;
-    static readonly OFFICER2 = 2;
-    static readonly OFFICER1 = 3;
-    static readonly ADMIRAL = 4;
-    static readonly LEADER = 5;
 
     @PrimaryKey
     @Column(DataType.INTEGER)
