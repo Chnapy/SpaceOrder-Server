@@ -8,7 +8,6 @@ import {
     DataType,
     ForeignKey,
     IsEmail,
-    IsInt,
     Length,
     Model,
     PrimaryKey,
@@ -20,12 +19,13 @@ import Faction from "./Faction";
 import Rank from "./Enum/Rank";
 import Mission from "./Mission";
 import UserMission from "./UserMission";
+import Resources from "./Resources";
 
 @Table
 export default class User extends Model<User> {
 
     static USERNAME_LENGTH = {min: 3, max: 16};
-    static EMAIL_LENGTH = {max: 128};
+    static EMAIL_LENGTH = {min: 0, max: 128};
 
     @PrimaryKey
     @AutoIncrement
@@ -85,30 +85,21 @@ export default class User extends Model<User> {
     @BelongsTo(() => Rank, 'id_rank')
     rank: number;
 
-    @IsInt
+    @ForeignKey(() => Resources)
     @AllowNull(false)
     @Column
-    mo_actu: number;
+    id_resources_actu: number;
 
-    @IsInt
-    @AllowNull(false)
-    @Column
-    mo_total: number;
+    @BelongsTo(() => Resources, 'id_resources_actu')
+    resources_actu: Resources;
 
-    @IsInt
+    @ForeignKey(() => Resources)
     @AllowNull(false)
     @Column
-    ma_actu: number;
+    id_resources_total: number;
 
-    @IsInt
-    @AllowNull(false)
-    @Column
-    mi_actu: number;
-
-    @IsInt
-    @AllowNull(false)
-    @Column
-    mi_total: number;
+    @BelongsTo(() => Resources, 'id_resources_total')
+    resources_total: Resources;
 
     @BelongsToMany(() => Mission, () => UserMission)
     missions: Mission[];
