@@ -1,7 +1,10 @@
 import {AllowNull, AutoIncrement, Column, DataType, Model, PrimaryKey, Table} from "sequelize-typescript";
+import * as bcrypt from 'bcrypt';
 
 @Table
 export default class Password extends Model<Password> {
+
+    private static SALT_ROUNDS: number = 10;
 
     static PASSWORD_LENGTH = {min: 6, max: 32};
 
@@ -12,10 +15,14 @@ export default class Password extends Model<Password> {
 
     @AllowNull(false)
     @Column
-    value: string;
+    hash: string;
 
-    @AllowNull(false)
-    @Column(DataType.ARRAY(DataType.INTEGER))
-    salt: Array<number>;
+    // @AllowNull(false)
+    // @Column(DataType.ARRAY(DataType.INTEGER))
+    // salt: Array<number>;
+
+    static hashPassword(password: string): Promise<string> {
+        return bcrypt.hash(password, Password.SALT_ROUNDS);
+    }
 
 }

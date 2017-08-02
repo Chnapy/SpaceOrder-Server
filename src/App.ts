@@ -33,9 +33,9 @@ export default class App {
     public setup(port: number) {
         this.setPort(port);
         this.setupFirstUses();
-        this.setupRoutes();
 
         this.setupDatabase(() => {
+            this.setupRoutes();
             this.setupServer(port);
 
             this.setupSocketIO();

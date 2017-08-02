@@ -2,6 +2,8 @@ import {IParamChecker, IReturn, Route} from "../src/Route";
 import User from "../models/User";
 import Password from "../models/Password";
 import {Sequelize} from "sequelize-typescript";
+import UserRegistrationData from "../src/database/UserRegistrationData";
+import {ErrorCoded} from "../src/ErrorCodes";
 import isAlphanumeric = require("validator/lib/isAlphanumeric");
 import isLength = require("validator/lib/isLength");
 import isEmail = require("validator/lib/isEmail");
@@ -45,6 +47,10 @@ export default class UserRegistration extends Route<IUserRegistrationParams, IUs
 
     protected computeData(params: IUserRegistrationParams): IUserRegistrationReturn {
 
+        const model = new UserRegistrationData(this.sequelize);
+        model.start(params)
+            .then(succ => console.log('SUCC', succ))
+            .catch((err: ErrorCoded) => console.log('ERROR', err.stack, err));
 
         return {
             success: true,

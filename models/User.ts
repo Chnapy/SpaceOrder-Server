@@ -78,7 +78,7 @@ export default class User extends Model<User> {
     top: User;
 
     @ForeignKey(() => Rank)
-    @AllowNull(false)
+    @AllowNull(true)
     @Column
     id_rank: number;
 

@@ -1,3 +1,22 @@
+export class ErrorCoded extends Error {
+
+    readonly code: number;
+    readonly error: Error;
+
+    constructor(code: number, error?: Error) {
+        super(undefined);
+        Object.setPrototypeOf(this, ErrorCoded.prototype);
+
+        this.code = code;
+        this.error = error;
+    }
+
+    toString() {
+        return this.code + `${this.error ? ' ' + this.error : ''}`;
+    }
+
+}
+
 export module ErrorCode {
 
     export enum General {
@@ -11,6 +30,12 @@ export module ErrorCode {
         TOKEN_WRONG = 1006,
         PARAMETERS_MISSING = 1007
 
+    }
+
+    export enum User {
+
+        USERNAME_EXIST = 1121,
+        EMAIL_EXIST = 1122
     }
 
 }
