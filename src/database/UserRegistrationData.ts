@@ -123,9 +123,9 @@ export default class UserRegistrationData extends ModelData<IUserRegistrationPar
         return User.create<User>({
             username: params.username,
             email: params.email,
-            password: data.password,
-            resources_actu: data.resources.actu,
-            resources_total: data.resources.total
+            id_password: data.password.id_password,
+            id_resources_actu: data.resources.actu.id_resources,
+            id_resources_total: data.resources.total.id_resources
         }, {
             transaction: t,
             include: [{model: Password}]

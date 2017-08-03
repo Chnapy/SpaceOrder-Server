@@ -2,6 +2,7 @@ import * as express from "express";
 import {NextFunction, Request, Response} from "express-serve-static-core";
 import {ErrorCode} from "./ErrorCodes";
 import {Sequelize} from "sequelize-typescript";
+import Bluebird = require("bluebird");
 import Socket = SocketIO.Socket;
 
 export interface IReturn {
@@ -54,25 +55,25 @@ export abstract class Route<IParams, R extends IReturn> {
         let params = Object.keys(req.body).length ? req.body : req.query;
 
         const retContent = this.beforeComputeData(params);
-        this.httpSend(res, retContent);
+        retContent.then(ret => this.httpSend(res, ret));
     }
 
     protected onIOCall(socket: Socket, params: IParams): void {
         console.log(this.path + ' - IO - ', params);
         const retContent = this.beforeComputeData(params);
-        this.IOSend(socket, retContent);
+        retContent.then(ret => this.IOSend(socket, ret));
     }
 
-    protected beforeComputeData(params: IParams): R | IReturnFail {
+    protected beforeComputeData(params: IParams): Bluebird<R | IReturnFail> {
 
         try {
 
             const check = this.checkParams(params);
             if (!check) {
-                return {
+                return new Bluebird((resolve, reject) => resolve({
                     success: false,
                     errorCode: ErrorCode.General.PARAMETERS_MISSING
-                };
+                }));
             }
 
             this.formatParams(params);
@@ -80,10 +81,10 @@ export abstract class Route<IParams, R extends IReturn> {
             return this.computeData(params);
         } catch (e) {
             console.error(e);
-            return {
+            return new Bluebird((resolve, reject) => resolve({
                 success: false,
                 errorCode: ErrorCode.General.UNHANDLED
-            };
+            }));
         }
     }
 
@@ -132,7 +133,7 @@ export abstract class Route<IParams, R extends IReturn> {
         }
     }
 
-    protected abstract computeData(params: IParams): R | IReturnFail;
+    protected abstract computeData(params: IParams): Bluebird<R | IReturnFail>;
 
     protected httpSend(res: Response, content: R | IReturnFail): void {
         res.json(content);

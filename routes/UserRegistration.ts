@@ -1,4 +1,4 @@
-import {IParamChecker, IReturn, Route} from "../src/Route";
+import {IParamChecker, IReturn, IReturnFail, Route} from "../src/Route";
 import User from "../models/User";
 import Password from "../models/Password";
 import {Sequelize} from "sequelize-typescript";
@@ -7,6 +7,7 @@ import {ErrorCoded} from "../src/ErrorCodes";
 import isAlphanumeric = require("validator/lib/isAlphanumeric");
 import isLength = require("validator/lib/isLength");
 import isEmail = require("validator/lib/isEmail");
+import Bluebird = require("bluebird");
 
 export interface IUserRegistrationParams {
     username: string;
@@ -45,17 +46,27 @@ export default class UserRegistration extends Route<IUserRegistrationParams, IUs
         super('/user/registration', sequelize, paramChecker);
     }
 
-    protected computeData(params: IUserRegistrationParams): IUserRegistrationReturn {
+    protected computeData(params: IUserRegistrationParams): Bluebird<IUserRegistrationReturn | IReturnFail> {
 
         const model = new UserRegistrationData(this.sequelize);
-        model.start(params)
-            .then(succ => console.log('SUCC', succ))
-            .catch((err: ErrorCoded) => console.log('ERROR', err.stack, err));
 
-        return {
-            success: true,
-            users: 'coucou'
-        };
+        return model.start(params)
+            .then(succ => {
+                console.log('SUCC', succ);
+
+                return {
+                    success: true,
+                    users: 'success !'
+                }
+            })
+            .catch((err: ErrorCoded) => {
+                console.log('ERROR', err);
+
+                return {
+                    success: false,
+                    errorCode: err.code
+                };
+            });
     }
 
 }

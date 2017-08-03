@@ -87,7 +87,6 @@ export default class App {
                 .map(d => path.join(__dirname, App.MODELS_PATH, d))
         });
 
-
         //Drop then create all tables
         this.sequelize.sync({force: App.SEQUELIZE_RESET}).then(err => {
 
@@ -97,55 +96,6 @@ export default class App {
             } else {
                 callback();
             }
-
-
-            // const top = new User({
-            //     username: "C2aaaa",
-            //     password: {
-            //         value: 'test2',
-            //         salt: [97, 34, 56]
-            //     },
-            //     email: "toto@aaa.com",
-            //     date_register: new Date(),
-            //     date_last_activity: new Date(),
-            //     mo_actu: 0,
-            //     mo_total: 1,
-            //     ma_actu: 2,
-            //     mi_actu: 3,
-            //     mi_total: 4,
-            //     id_rank: Rank.LEADER
-            // }, {include: [{model: User}, {model: Password}]});
-            //
-            // const user = new User({
-            //     username: "Chnapy",
-            //     password: {
-            //         value: 'test_pwd',
-            //         salt: [21, 34, 56]
-            //     },
-            //     email: "toto@aaa.com",
-            //     date_register: new Date(),
-            //     date_last_activity: new Date(),
-            //     mo_actu: 0,
-            //     mo_total: 1,
-            //     ma_actu: 2,
-            //     mi_actu: 3,
-            //     mi_total: 4,
-            //     id_rank: Rank.OFFICER1
-            // }, {include: [{model: User}, {model: Password}]});
-            //
-            // const faction = new Faction({
-            //     name: 'Test_faction',
-            //     slogan: 'Test_slogan',
-            //     color: '#FF8844'
-            // });
-            //
-            // Promise.all([top.save(), user.save(), faction.save()]).then(() => {
-            //     user.$set('top', top);
-            //     user.$set('faction', faction);
-            //
-            //     callback();
-            // });
-
 
         }).catch(err => console.error(err));
 
