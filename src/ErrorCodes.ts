@@ -4,7 +4,7 @@ export class ErrorCoded extends Error {
     readonly error: Error;
 
     constructor(code: number, error?: Error) {
-        super(undefined);
+        super(code + `${error ? ' ' + error : ''}`);
         Object.setPrototypeOf(this, ErrorCoded.prototype);
 
         this.code = code;
@@ -34,6 +34,8 @@ export module ErrorCode {
 
     export enum User {
 
+        USERNAME_WRONG = 1101,
+        PASSWORD_WRONG = 1101,
         USERNAME_EXIST = 1121,
         EMAIL_EXIST = 1122
     }

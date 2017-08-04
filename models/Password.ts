@@ -25,4 +25,8 @@ export default class Password extends Model<Password> {
         return bcrypt.hash(password, Password.SALT_ROUNDS);
     }
 
+    static checkPassword(plain, hash): Promise<boolean> {
+        return bcrypt.compare(plain, hash);
+    }
+
 }

@@ -17,7 +17,7 @@ export abstract class ModelData<IParam, IData> {
         this.sequelize = sequelize;
     }
 
-    start(params: IParam): Bluebird<Transaction> {
+    start(params: IParam): Bluebird<IData> {
         const requestRoot: SequelizeRequest<IParam, IData> = this.getAllSequelizeRequests();
         const defaultCatch = (err: ErrorCoded | Error) => {
             // console.info(err);

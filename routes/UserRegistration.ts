@@ -15,7 +15,7 @@ export interface IUserRegistrationParams {
     email: string;
 }
 
-const paramChecker: IParamChecker = {
+export const URParamChecker: IParamChecker = {
     username: {
         validators: [
             isAlphanumeric,
@@ -37,13 +37,12 @@ const paramChecker: IParamChecker = {
 };
 
 interface IUserRegistrationReturn extends IReturn {
-    users: string;
 }
 
 export default class UserRegistration extends Route<IUserRegistrationParams, IUserRegistrationReturn> {
 
     constructor(sequelize: Sequelize) {
-        super('/user/registration', sequelize, paramChecker);
+        super('/user/registration', sequelize, URParamChecker);
     }
 
     protected computeData(params: IUserRegistrationParams): Bluebird<IUserRegistrationReturn | IReturnFail> {
@@ -51,14 +50,9 @@ export default class UserRegistration extends Route<IUserRegistrationParams, IUs
         const model = new UserRegistrationData(this.sequelize);
 
         return model.start(params)
-            .then(succ => {
-                console.log('SUCC', succ);
-
-                return {
-                    success: true,
-                    users: 'success !'
-                }
-            })
+            .then(succ => ({
+                success: true
+            }))
             .catch((err: ErrorCoded) => {
                 console.log('ERROR', err);
 

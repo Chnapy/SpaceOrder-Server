@@ -18,7 +18,7 @@ export default class App {
     private static readonly USE_SASS: boolean = true;
     private static readonly ROUTES_PATH: string = '../routes/';
     private static readonly MODELS_PATH: string = '../models/';
-    private static readonly SEQUELIZE_RESET: boolean = true;
+    private static readonly SEQUELIZE_RESET: boolean = false;
 
     private readonly app: express.Express;
     private io: SocketIO.Server;

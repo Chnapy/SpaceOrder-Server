@@ -104,4 +104,15 @@ export default class User extends Model<User> {
     @BelongsToMany(() => Mission, () => UserMission)
     missions: Mission[];
 
+    getPayload() {
+        return {
+            id_user: this.id_user,
+            username: this.username,
+            id_password: this.id_password,
+            date_register: this.date_register,
+            id_resources_actu: this.id_resources_actu,
+            id_resources_total: this.id_resources_total
+        };
+    }
+
 }
