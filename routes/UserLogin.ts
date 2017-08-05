@@ -35,8 +35,6 @@ export default class UserLogin extends Route<IUserLoginParams, IUserLoginReturn>
                 token: data.token
             }))
             .catch((err: ErrorCoded) => {
-                console.log('ERROR', err);
-
                 return {
                     success: false,
                     errorCode: err.code

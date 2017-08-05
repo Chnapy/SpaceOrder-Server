@@ -17,12 +17,17 @@ export interface IReturnFail extends IReturn {
 export interface IParamChecker {
     [key: string]: {
         allowUndefined?: boolean;
+        isArray?: boolean;
         validators: ((param: string) => boolean)[];
         formaters?: ((param: string) => any)[];
     };
 }
 
 interface NoParamChecker extends IParamChecker {
+}
+
+export interface IParamsToken {
+    token: string;
 }
 
 export abstract class Route<IParams, R extends IReturn> {
@@ -101,11 +106,28 @@ export abstract class Route<IParams, R extends IReturn> {
                 return false;
             }
 
+            if (checker.isArray && value.constructor !== Array) {
+                console.log('want value as array but isn\'t: ' + value);
+                return false;
+            }
+
+            if (!checker.isArray && value.constructor === Array) {
+                console.log('want value as not array but is: ' + value);
+                return false;
+            }
+
             let valid;
             for (let i = 0; i < checker.validators.length; i++) {
                 valid = checker.validators[i];
 
-                if (!valid(value + '')) {
+                if (checker.isArray) {
+                    for (let i = 0; i < value.length; i++) {
+                        if (!valid(value[i] + '')) {
+                            console.log('no valid: ' + k, value[i], valid);
+                            return false;
+                        }
+                    }
+                } else if (!valid(value + '')) {
                     console.log('no valid: ' + k, value, valid);
                     return false;
                 }
@@ -128,7 +150,15 @@ export abstract class Route<IParams, R extends IReturn> {
             }
 
             let newValue = value;
-            checker.formaters.forEach(f => newValue = f(value));
+
+            if (checker.isArray) {
+                checker.formaters.forEach(f => {
+                    newValue = value.map((v, i) => f(v));
+                });
+            } else {
+                checker.formaters.forEach(f => newValue = f(value));
+            }
+
             params[k] = newValue;
         }
     }

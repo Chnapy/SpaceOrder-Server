@@ -9,7 +9,6 @@ import {
     ForeignKey,
     IsEmail,
     Length,
-    Model,
     PrimaryKey,
     Table,
     UpdatedAt
@@ -20,9 +19,40 @@ import Rank from "./Enum/Rank";
 import Mission from "./Mission";
 import UserMission from "./UserMission";
 import Resources from "./Resources";
+import {ModelSendable} from "../src/ModelSendable";
+
+export interface Payload {
+    id_user: number;
+    username: string;
+    id_password: number;
+    date_register: Date;
+    id_resources_actu: number;
+    id_resources_total: number;
+}
+
+export interface UserSend {
+    id_user: number;
+    general: {
+        username: string;
+        email: string;
+        id_rank: number;
+        date_register: Date;
+        date_last_activity: Date;
+    };
+    faction: Faction | null;
+    hierarchy: {
+        top: User | null,
+        bottom?: User[];
+    };
+    resources: {
+        actu: Resources;
+        total: Resources;
+    };
+    missions: Mission[];
+}
 
 @Table
-export default class User extends Model<User> {
+export default class User extends ModelSendable<User, UserSend> {
 
     static USERNAME_LENGTH = {min: 3, max: 16};
     static EMAIL_LENGTH = {min: 0, max: 128};
@@ -104,7 +134,29 @@ export default class User extends Model<User> {
     @BelongsToMany(() => Mission, () => UserMission)
     missions: Mission[];
 
-    getPayload() {
+    toSend(): UserSend {
+        return {
+            id_user: this.id_user,
+            general: {
+                username: this.username,
+                email: this.email,
+                id_rank: this.id_rank,
+                date_register: this.date_register,
+                date_last_activity: this.date_last_activity
+            },
+            faction: this.faction,
+            hierarchy: {
+                top: this.top,
+            },
+            resources: {
+                actu: this.resources_actu,
+                total: this.resources_total
+            },
+            missions: this.missions
+        };
+    }
+
+    getPayload(): Payload {
         return {
             id_user: this.id_user,
             username: this.username,

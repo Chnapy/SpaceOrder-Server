@@ -31,7 +31,6 @@
     "express": "~4.15.2",
     "jsonwebtoken": "^7.4.2",
     "morgan": "~1.8.1",
-    "node-sass-middleware": "0.9.8",
     "nodemon": "^1.11.0",
     "ntypescript": "^1.201706190042.1",
     "path": "~0.12.7",

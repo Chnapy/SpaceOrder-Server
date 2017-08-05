@@ -5,7 +5,6 @@ import * as path from "path";
 import * as logger from "morgan";
 import * as cookieParser from "cookie-parser";
 import * as bodyParser from "body-parser";
-import * as sassMiddleware from "node-sass-middleware";
 import {Sequelize} from "sequelize-typescript";
 import * as socketIO from 'socket.io';
 import * as fs from "fs";
@@ -15,7 +14,7 @@ import Socket = SocketIO.Socket;
 
 export default class App {
 
-    private static readonly USE_SASS: boolean = true;
+    // private static readonly USE_SASS: boolean = true;
     private static readonly ROUTES_PATH: string = '../routes/';
     private static readonly MODELS_PATH: string = '../models/';
     private static readonly SEQUELIZE_RESET: boolean = false;
@@ -54,12 +53,12 @@ export default class App {
         this.app.use(bodyParser.json()); //Parser JSON
         this.app.use(bodyParser.urlencoded({extended: false}));  //Parser URL
         this.app.use(cookieParser());    //Parser Cookie
-        this.app.use(sassMiddleware({    //Compile SASS/SCSS
-            src: path.join(__dirname, 'public'),
-            dest: path.join(__dirname, 'public'),
-            indentedSyntax: App.USE_SASS, // true = .sass and false = .scss
-            sourceMap: true
-        }));
+        // this.app.use(sassMiddleware({    //Compile SASS/SCSS
+        //     src: path.join(__dirname, 'public'),
+        //     dest: path.join(__dirname, 'public'),
+        //     indentedSyntax: App.USE_SASS, // true = .sass and false = .scss
+        //     sourceMap: true
+        // }));
         this.app.use(express.static(path.join(__dirname, 'public')));    //Répertoire des fichiers static
     }
 

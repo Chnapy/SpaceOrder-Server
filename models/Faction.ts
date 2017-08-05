@@ -1,16 +1,16 @@
-import {
-    AllowNull,
-    AutoIncrement,
-    Column,
-    CreatedAt,
-    DataType,
-    Default,
-    Length,
-    Model,
-    PrimaryKey
-} from "sequelize-typescript";
+import {AllowNull, AutoIncrement, Column, CreatedAt, DataType, Default, Length, PrimaryKey} from "sequelize-typescript";
+import {ModelSendable} from "../src/ModelSendable";
 
-export default class Faction extends Model<Faction> {
+export interface FactionSend {
+    id_faction: number;
+    name: string;
+    slogan: string;
+    color: string;
+    nb_users_actu: number;
+    date_creation: Date;
+}
+
+export default class Faction extends ModelSendable<Faction, FactionSend> {
 
     static readonly NAME_LENGTH = {
         min: 3,
@@ -53,5 +53,9 @@ export default class Faction extends Model<Faction> {
     @AllowNull(false)
     @Column
     date_creation: Date;
+
+    toSend(): FactionSend {
+        return this.get();
+    }
 
 }

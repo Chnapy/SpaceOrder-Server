@@ -54,8 +54,6 @@ export default class UserRegistration extends Route<IUserRegistrationParams, IUs
                 success: true
             }))
             .catch((err: ErrorCoded) => {
-                console.log('ERROR', err);
-
                 return {
                     success: false,
                     errorCode: err.code

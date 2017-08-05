@@ -1,17 +1,18 @@
-import {
-    AllowNull,
-    AutoIncrement,
-    Column,
-    DataType,
-    Default,
-    IsInt,
-    Model,
-    PrimaryKey,
-    Table
-} from "sequelize-typescript";
+import {AllowNull, AutoIncrement, Column, DataType, Default, IsInt, PrimaryKey, Table} from "sequelize-typescript";
+import {ModelSendable} from "../src/ModelSendable";
+
+export interface ResourcesSend {
+    id_resources: number;
+    mo: number;
+    ma: number;
+    mi: number;
+    vit: number;
+    d: number;
+    life: number;
+}
 
 @Table
-export default class Resources extends Model<Resources> {
+export default class Resources extends ModelSendable<Resources, ResourcesSend> {
 
     @PrimaryKey
     @AutoIncrement
@@ -53,4 +54,8 @@ export default class Resources extends Model<Resources> {
     @AllowNull(false)
     @Column
     life: number;
+
+    toSend(): ResourcesSend {
+        return this.get();
+    }
 }

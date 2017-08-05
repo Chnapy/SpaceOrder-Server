@@ -37,7 +37,8 @@ export module ErrorCode {
         USERNAME_WRONG = 1101,
         PASSWORD_WRONG = 1101,
         USERNAME_EXIST = 1121,
-        EMAIL_EXIST = 1122
+        EMAIL_EXIST = 1122,
+        USERS_NOTFOUND = 1131
     }
 
 }

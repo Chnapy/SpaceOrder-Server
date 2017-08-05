@@ -1,8 +1,7 @@
-import {IUserRegistrationParams} from "../../routes/UserRegistration";
 import {ModelData, SequelizeRequest} from "./ModelData";
 import {IUserLoginParams} from "../../routes/UserLogin";
 import {Transaction} from "sequelize";
-import User from "../../models/User";
+import User, {Payload} from "../../models/User";
 import {ErrorCode, ErrorCoded} from "../ErrorCodes";
 import Password from "../../models/Password";
 import * as jwt from 'jsonwebtoken';
@@ -15,7 +14,7 @@ export interface ULDataSet {
 
 export default class UserLoginData extends ModelData<IUserLoginParams, ULDataSet> {
 
-    protected getAllSequelizeRequests(): SequelizeRequest<IUserRegistrationParams, ULDataSet> {
+    protected getAllSequelizeRequests(): SequelizeRequest<IUserLoginParams, ULDataSet> {
         return {
             request: [(t, params, data) => this.checkUsername(t, params, data)],
             thenRequest: {
@@ -47,8 +46,6 @@ export default class UserLoginData extends ModelData<IUserLoginParams, ULDataSet
         const plain = params.password;
         const hash = data.user.password.hash;
 
-        console.log(plain, hash);
-
         return Password.checkPassword(plain, hash)
             .then(same => {
                 if (!same) {
@@ -61,9 +58,10 @@ export default class UserLoginData extends ModelData<IUserLoginParams, ULDataSet
 
         return new Promise((resolve, reject) => {
 
-            const payload = data.user.getPayload();
-            jwt.sign(payload, 'private.key', {
-                algorithm: 'HS256',
+            const payload: Payload = data.user.getPayload();
+
+            jwt.sign(payload, ModelData.privateKey, {
+                algorithm: ModelData.tokenAlgo,
                 expiresIn: '7d'
             }, (err: Error, encoded: string) => {
                 if (err) {
@@ -73,9 +71,7 @@ export default class UserLoginData extends ModelData<IUserLoginParams, ULDataSet
 
                 data.token = encoded;
 
-                // jwt.verify(encoded, 'private.key', (err, decoded) => {
-                //     console.log('DECODED', decoded);
-                // })
+                this.verifyToken(t, {token: encoded + 'test'}, data);
 
                 resolve();
             });

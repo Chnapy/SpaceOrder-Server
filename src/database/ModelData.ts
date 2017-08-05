@@ -1,6 +1,11 @@
 import {Sequelize} from "sequelize-typescript";
 import {Transaction} from "sequelize";
 import {ErrorCode, ErrorCoded} from "../ErrorCodes";
+import * as fs from 'fs';
+import * as path from 'path';
+import * as jwt from 'jsonwebtoken';
+import {IParamsToken} from "../Route";
+import {Payload} from "../../models/User";
 import Bluebird = require("bluebird");
 
 export interface SequelizeRequest<IParam, IData> {
@@ -9,21 +14,30 @@ export interface SequelizeRequest<IParam, IData> {
     catchCallback?: (err: Error) => Bluebird<any> | Promise<any> | never;
 }
 
-export abstract class ModelData<IParam, IData> {
+export interface IDataToken {
+    tokenPayload: Payload;
+}
+
+export abstract class ModelData<IParams, IData> {
+
+    protected static readonly privateKey: string = fs.readFileSync(path.join(__dirname, '../private.key'), 'utf8');
+    protected static readonly tokenAlgo = 'HS256';
 
     private readonly sequelize: Sequelize;
+    private readonly needToken: boolean;
 
-    constructor(sequelize: Sequelize) {
+    constructor(sequelize: Sequelize, needToken?: boolean) {
         this.sequelize = sequelize;
+        this.needToken = needToken;
     }
 
-    start(params: IParam): Bluebird<IData> {
-        const requestRoot: SequelizeRequest<IParam, IData> = this.getAllSequelizeRequests();
+    start(params: IParams): Bluebird<IData> {
+        const requestRoot: SequelizeRequest<IParams, IData> = this.beforeGetAllRequelizeRequests();
         const defaultCatch = (err: ErrorCoded | Error) => {
-            // console.info(err);
             if (err instanceof ErrorCoded) {
                 throw err;
             }
+            console.error(err);
             throw new ErrorCoded(ErrorCode.General.UNHANDLED);
         };
 
@@ -36,9 +50,9 @@ export abstract class ModelData<IParam, IData> {
         });
     }
 
-    protected abstract getAllSequelizeRequests(): SequelizeRequest<IParam, IData>;
+    protected abstract getAllSequelizeRequests(): SequelizeRequest<IParams, IData>;
 
-    protected next(t: Transaction, params: IParam, thenRequest: SequelizeRequest<IParam, IData>, data: IData): Promise<IData | any> {
+    protected next(t: Transaction, params: IParams, thenRequest: SequelizeRequest<IParams, IData>, data: IData): Promise<IData | any> {
 
         if (!thenRequest) {
             return new Promise<IData>(resolve => resolve(data));
@@ -52,6 +66,35 @@ export abstract class ModelData<IParam, IData> {
         }
 
         return request;
+    }
+
+    protected verifyToken(t: Transaction, params: IParamsToken, data: IDataToken): Promise<void> {
+
+        return new Promise((resolve, reject) => {
+
+            jwt.verify(params.token, ModelData.privateKey, {algorithms: [ModelData.tokenAlgo]}, (err: Error, decoded: Payload) => {
+                if (err) {
+                    reject(new ErrorCoded(ErrorCode.General.TOKEN_WRONG, err));
+                    return;
+                }
+
+                data.tokenPayload = decoded;
+
+                resolve();
+            });
+        });
+
+    }
+
+    private beforeGetAllRequelizeRequests(): SequelizeRequest<IParams | IParamsToken, IData | IDataToken> {
+        if (!this.needToken) {
+            return this.getAllSequelizeRequests();
+        }
+
+        return {
+            request: [(t, params, data) => this.verifyToken(t, params as IParamsToken, data as IDataToken)],
+            thenRequest: this.getAllSequelizeRequests()
+        }
     }
 
 }
