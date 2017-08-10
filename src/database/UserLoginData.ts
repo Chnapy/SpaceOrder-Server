@@ -1,4 +1,4 @@
-import {ModelData, SequelizeRequest} from "./ModelData";
+import {IDataToken, ModelData, SequelizeRequest} from "./ModelData";
 import {IUserLoginParams} from "../../routes/UserLogin";
 import {Transaction} from "sequelize";
 import User, {Payload} from "../../models/User";
@@ -7,7 +7,7 @@ import Password from "../../models/Password";
 import * as jwt from 'jsonwebtoken';
 import Bluebird = require("bluebird");
 
-export interface ULDataSet {
+export interface ULDataSet extends IDataToken {
     user?: User;
     token?: string;
 }
@@ -70,8 +70,6 @@ export default class UserLoginData extends ModelData<IUserLoginParams, ULDataSet
                 }
 
                 data.token = encoded;
-
-                this.verifyToken(t, {token: encoded + 'test'}, data);
 
                 resolve();
             });

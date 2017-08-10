@@ -1,4 +1,4 @@
-import {AllowNull, AutoIncrement, Column, CreatedAt, DataType, Default, Length, PrimaryKey} from "sequelize-typescript";
+import {AllowNull, AutoIncrement, Column, CreatedAt, DataType, Length, PrimaryKey} from "sequelize-typescript";
 import {ModelSendable} from "../src/ModelSendable";
 
 export interface FactionSend {
@@ -44,7 +44,6 @@ export default class Faction extends ModelSendable<Faction, FactionSend> {
     @Column
     color: string;
 
-    @Default(0)
     @AllowNull(false)
     @Column
     nb_users_actu: number;

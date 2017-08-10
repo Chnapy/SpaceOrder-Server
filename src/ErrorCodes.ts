@@ -41,4 +41,11 @@ export module ErrorCode {
         USERS_NOTFOUND = 1131
     }
 
+    export enum Faction {
+
+        USER_INFACTION = 1201,
+        FACTION_NAMEEXIST = 1202
+
+    }
+
 }

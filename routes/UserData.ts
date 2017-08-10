@@ -2,6 +2,7 @@ import {IParamChecker, IParamsToken, IReturn, IReturnFail, Route} from "../src/R
 import {Sequelize} from "sequelize-typescript";
 import UserDataData from "../src/database/UserDataData";
 import {ErrorCoded} from "../src/ErrorCodes";
+import {UserSend} from "../models/User";
 import Bluebird = require("bluebird");
 import isInt = require("validator/lib/isInt");
 
@@ -22,6 +23,7 @@ const UParamChecker: IParamChecker = {
 };
 
 interface IUserDataReturn extends IReturn {
+    data: UserSend[];
 }
 
 export default class UserData extends Route<IUserDataParams, IUserDataReturn> {

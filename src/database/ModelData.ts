@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as jwt from 'jsonwebtoken';
 import {IParamsToken} from "../Route";
-import {Payload} from "../../models/User";
+import {default as User, Payload} from "../../models/User";
 import Bluebird = require("bluebird");
 
 export interface SequelizeRequest<IParam, IData> {
@@ -80,7 +80,18 @@ export abstract class ModelData<IParams, IData> {
 
                 data.tokenPayload = decoded;
 
-                resolve();
+                User.findOne<User>({
+                    where: {id_user: data.tokenPayload.id_user},
+                    transaction: t
+                }).then(result => {
+                    if (!result) {
+                        reject(new ErrorCoded(ErrorCode.General.TOKEN_WRONG, err));
+                        return;
+                    }
+
+                    resolve();
+                });
+
             });
         });
 
@@ -94,7 +105,7 @@ export abstract class ModelData<IParams, IData> {
         return {
             request: [(t, params, data) => this.verifyToken(t, params as IParamsToken, data as IDataToken)],
             thenRequest: this.getAllSequelizeRequests()
-        }
+        };
     }
 
 }
